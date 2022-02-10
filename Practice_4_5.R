@@ -33,8 +33,21 @@ df1 <- df1 %>%
 tail(df1)
 
 df1_tidy <- df1 %>%
-  pivot_longer(cols = X2001:X2019, names_to = "Year", values_to = "Values")
+  pivot_longer(cols = X2001:X2019, 
+               names_to = "Year", 
+               values_to = "Values",
+               names_prefix = "X")
 
 head(df1_tidy)
 glimpse(df1_tidy)
+
+df1_tidier <- df1_tidy %>%
+  pivot_wider(id_cols = c("GeoFIPS", "Year"),
+              names_from = Description,
+              values_from = Values)
+head(df1_tidier)
+glimpse(df1_tidier)
+View(df1_tidier)
+
+colSums(is.na(df1_tidier))
 
